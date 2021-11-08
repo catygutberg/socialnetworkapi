@@ -1,7 +1,12 @@
+Pipfile
+Pipfile.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+.idea
+db.sqlite3
 
 # C extensions
 *.so
