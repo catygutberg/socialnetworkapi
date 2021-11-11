@@ -1,10 +1,8 @@
 import sys
-from datetime import datetime
-from time import strptime
 
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.utils.timezone import get_current_timezone
+from django.http import Http404
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -55,11 +53,14 @@ class UserNewView(CreateAPIView):
 
 class UserInfoView(APIView):
     def get(self, request):
-        info = {
-            "last_login": User.objects.get(id=request.GET.get("user_id")).last_login,
-            "last_request": UserInfo.objects.get(user=request.GET.get("user_id")).last_request,
-        }
-        return Response(UserInfoSerializer(info).data)
+        try:
+            info = {
+                "last_login": User.objects.get(id=request.GET.get("user_id")).last_login,
+                "last_request": UserInfo.objects.get(user=request.GET.get("user_id")).last_request,
+            }
+            return Response(UserInfoSerializer(info).data)
+        except UserInfo.DoesNotExist:
+            raise Http404()
 
 
 class LikeView(APIView):
