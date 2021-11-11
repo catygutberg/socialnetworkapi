@@ -93,6 +93,5 @@ class LikeView(APIView):
 
 class RootView(APIView):
     def get(self, request):
-        response = {"description": "This is SocialNetworkAPI. "
-                                   "Detailed info on https://documenter.getpostman.com/view/18156181/UVC6jmpa"}
-        return Response(data=json.dumps(response))
+        return Response({"description": "This is SocialNetworkAPI. "
+                                        "Detailed info on https://documenter.getpostman.com/view/18156181/UVC6jmpa"})
