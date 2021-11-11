@@ -1,3 +1,4 @@
+import json
 import sys
 
 from django.contrib.auth.models import User
@@ -89,3 +90,9 @@ class LikeView(APIView):
 
         return Response(LikeSerializer(like_obj).data)
 
+
+class RootView(APIView):
+    def get(self, request):
+        response = {"description": "This is SocialNetworkAPI. "
+                                   "Detailed info on https://documenter.getpostman.com/view/18156181/UVC6jmpa"}
+        return Response(data=json.dumps(response))

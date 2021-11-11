@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from api.views import PostView, UserNewView, UserInfoView, LikeView
+from api.views import PostView, UserNewView, UserInfoView, LikeView, RootView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    path("api/", RootView.as_view()),
 
     path("api/post/", PostView.as_view()),
 
