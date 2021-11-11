@@ -1,5 +1,7 @@
+api/migrations/0*.py
 Pipfile
 Pipfile.*
+.gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

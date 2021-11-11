@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+
+  api:
+    build: .
+    image: socialnetworkapi
+    volumes:
+      - ./api/migrations:/home/djangouser/api/migrations
+    depends_on:
+      - db
+      - migrations
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    command: bash -c "sleep 3 && python ./manage.py runserver 0.0.0.0:8000"
+
+  migrations:
+    build: .
+    image: socialnetworkapi
+    volumes:
+      - ./api/migrations:/home/djangouser/api/migrations
+    depends_on:
+      - db
+    command: bash -c "sleep 3 && python manage.py makemigrations && python manage.py migrate --noinput"
+
+  db:
+    image: postgres
+    volumes:
+      - ../socialnetworkdb:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: "socialnetworkapi"
+      POSTGRES_USER: "socialnetworkapi"
+      POSTGRES_PASSWORD: "seif9pieyeehuogh9AezooveithaiXev"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.34.128/28
